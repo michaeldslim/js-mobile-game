@@ -23,6 +23,7 @@ export default function App() {
 
   const startGameBttn = () => {
     startSound.play();
+    startSound.setVolume(1);
     setStartGame(true);
   };
 
