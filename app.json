@@ -2,7 +2,12 @@
   "expo": {
     "name": "js-mobile-game",
     "slug": "js-mobile-game",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "7cfc8222-8a15-493a-8ff7-11ddda437789"
+      }
+    }
   },
   "name": "js-mobile-game"
 }
