@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -16,15 +16,41 @@ export const assets = {
   backGroundImage: require("./src/assets/background.png"),
 };
 
+const GAME_DURATION_SEC = 20;
+
 const startSound = new Sound("game_play.mp3", Sound.MAIN_BUNDLE);
+
+let timer = () => {};
 
 export default function App() {
   const [startGame, setStartGame] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(GAME_DURATION_SEC);
+
+  const startTimer = () => {
+    timer = setTimeout(() => {
+      if (timeLeft <= 0) {
+        clearTimeout(timer);
+        return false;
+      }
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (startGame) {
+      startTimer();
+      return () => clearTimeout(timer);
+    }
+  }, [startGame, timer]);
 
   const startGameBttn = () => {
     startSound.play();
     startSound.setVolume(1);
     setStartGame(true);
+
+    setTimeLeft(GAME_DURATION_SEC);
+    clearTimeout(timer);
+    startTimer();
   };
 
   const stopGameBttn = () => {
@@ -48,6 +74,9 @@ export default function App() {
             <FontAwesomeIcon icon={faStop} size={42} />
           </TouchableOpacity>
         )}
+      </View>
+      <View style={styles.gameTimer}>
+        <Text style={{ fontSize: 32 }}>{timeLeft}</Text>
       </View>
       <StatusBar hidden />
     </View>
@@ -77,5 +106,19 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  gameTimer: {
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: 100,
+    marginTop: 110,
+    backgroundColor: "white",
+    borderWidth: 4,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
 });
