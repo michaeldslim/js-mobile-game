@@ -11,20 +11,16 @@ import Sound from "react-native-sound";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons/faPlay";
 import { faStop } from "@fortawesome/free-solid-svg-icons/faStop";
+import { allAccessible } from "./src/constants/constants";
+import { FIELD_IMAGE, FIELD_BUG, FIELD_CARROT } from "./src/assets";
 
-export const assets = {
-  backGroundImage: require("./src/assets/background.png"),
-};
-
-const GAME_DURATION_SEC = 20;
-
-const startSound = new Sound("game_play.mp3", Sound.MAIN_BUNDLE);
+const startSound = new Sound(allAccessible.PLAY_GAME_START_SOUND, Sound.MAIN_BUNDLE);
 
 let timer = () => {};
 
 export default function App() {
   const [startGame, setStartGame] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(GAME_DURATION_SEC);
+  const [timeLeft, setTimeLeft] = useState(allAccessible.GAME_DURATION_SEC);
 
   const startTimer = () => {
     timer = setTimeout(() => {
@@ -48,7 +44,7 @@ export default function App() {
     startSound.setVolume(1);
     setStartGame(true);
 
-    setTimeLeft(GAME_DURATION_SEC);
+    setTimeLeft(allAccessible.GAME_DURATION_SEC);
     clearTimeout(timer);
     startTimer();
   };
@@ -61,7 +57,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={assets.backGroundImage}
+        source={FIELD_IMAGE}
         style={styles.background}
       />
       <View style={styles.gamePlayButton}>
