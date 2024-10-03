@@ -14,7 +14,10 @@ import { faStop } from "@fortawesome/free-solid-svg-icons/faStop";
 import { allAccessible } from "./src/constants/constants";
 import { FIELD_IMAGE, FIELD_BUG, FIELD_CARROT } from "./src/assets";
 
-const startSound = new Sound(allAccessible.PLAY_GAME_START_SOUND, Sound.MAIN_BUNDLE);
+const startSound = new Sound(
+  allAccessible.PLAY_GAME_START_SOUND,
+  Sound.MAIN_BUNDLE
+);
 
 let timer = () => {};
 
@@ -56,10 +59,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={FIELD_IMAGE}
-        style={styles.background}
-      />
+      <ImageBackground source={FIELD_IMAGE} style={styles.background} />
       <View style={styles.gamePlayButton}>
         {!startGame ? (
           <TouchableOpacity onPress={startGameBttn}>
@@ -112,9 +112,9 @@ const styles = StyleSheet.create({
     marginTop: 110,
     backgroundColor: "white",
     borderWidth: 4,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    borderTopLeftRadius: 9,
+    borderTopRightRadius: 9,
+    borderBottomLeftRadius: 9,
+    borderBottomRightRadius: 9,
   },
 });
